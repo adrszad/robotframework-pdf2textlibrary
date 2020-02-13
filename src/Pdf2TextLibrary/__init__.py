@@ -2,7 +2,7 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
-from io import StringIO
+from io import BytesIO, StringIO
 
 
 __version__ = '1.0.1'
@@ -20,9 +20,9 @@ class Pdf2TextLibrary(object):
         self.resource_manager = PDFResourceManager()
 
     def convert_pdf_to_txt(self, file_path):
-        string_io = StringIO()
+        bytes_io = BytesIO()
         text_converter = TextConverter(
-            self.resource_manager, string_io,
+            self.resource_manager, bytes_io,
             codec=self.codec, laparams=self.laparams
         )
         page_interpreter = PDFPageInterpreter(self.resource_manager, text_converter)
@@ -37,8 +37,8 @@ class Pdf2TextLibrary(object):
             for page in pages:
                 page_interpreter.process_page(page)
         text_converter.close()
-        result = string_io.getvalue()
-        string_io.close()
+        result = bytes_io.getvalue()
+        bytes_io.close()
         return result
 
     def count_pdf_pages(self, file_path):
