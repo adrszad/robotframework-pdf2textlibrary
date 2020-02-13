@@ -7,10 +7,10 @@ from setuptools import setup
 
 CURDIR = dirname(abspath(__file__))
 
-with open("README.rst", "r", encoding='utf-8') as fh:
+with open("README.rst", "r") as fh:
     long_description = fh.read()
 
-with open(join(CURDIR, 'src', 'Pdf2TextLibrary', '__init__.py'), encoding='utf-8') as f:
+with open(join(CURDIR, 'src', 'Pdf2TextLibrary', '__init__.py')) as f:
     VERSION = re.search("\n__version__ = '(.*)'", f.read()).group(1)
 
 setup(
@@ -26,6 +26,7 @@ setup(
     platforms='any',
     zip_safe=False,
     classifiers=[
+        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
